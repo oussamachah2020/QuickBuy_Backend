@@ -4,6 +4,7 @@ import com.example.QuickBuy.filters.JwtAuthenticationFilter;
 import com.example.QuickBuy.services.owner.UserDetailsImplementation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,14 +32,15 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/api/v1/login/**", "/api/v1/register/**", "/api/v1/refresh/**").permitAll()
+                        .requestMatchers("/api/v1/login/**", "/api/v1/register/**", "/api/v1/refresh/**", "/api/v1/product/*").permitAll()  // allow all product fetches
                         .anyRequest().authenticated()
                 )
-                .userDetailsService(userDetailsImplementation) // no cast needed if injected directly
+                .userDetailsService(userDetailsImplementation)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

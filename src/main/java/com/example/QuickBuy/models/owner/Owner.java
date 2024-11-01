@@ -1,5 +1,6 @@
 package com.example.QuickBuy.models.owner;
 
+import com.example.QuickBuy.models.product.Product;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,8 +20,28 @@ public class Owner implements UserDetails, Serializable {
     @Column(name = "id")
     String id;
 
-    @Column(name = "fist_name")
+    @Column(name = "fistName")
     String firstName;
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    @Column(name = "lastName")
+    String lastName;
+
+    @Enumerated(value = EnumType.STRING)
+    Sexe sexe;
+
+    @Column(name = "email")
+    String email;
+
+    @Column(name = "password")
+    String password;
+
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "productId")
+    private List<Product> products;
 
     public Sexe getSexe() {
         return sexe;
@@ -30,11 +51,7 @@ public class Owner implements UserDetails, Serializable {
         this.sexe = sexe;
     }
 
-    @Column(name = "last_name")
-    String lastName;
 
-    @Enumerated(value = EnumType.STRING)
-    Sexe sexe;
 
     public String getId() {
         return id;
@@ -107,9 +124,5 @@ public class Owner implements UserDetails, Serializable {
         this.password = password;
     }
 
-    @Column(name = "email")
-    String email;
 
-    @Column(name = "password")
-    String password;
 }
