@@ -32,7 +32,10 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/api/v1/login/**", "/api/v1/register/**", "/api/v1/refresh/**", "/api/v1/product/*").permitAll()  // allow all product fetches
+                        .requestMatchers("/api/v1/login/**", "/api/v1/register/**", "/api/v1/refresh/**", "/api/v1/product/*", "/v3/api-docs/**",
+                                "/v3/api-docs.yaml",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html").permitAll()  // allow all product fetches
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userDetailsImplementation)
