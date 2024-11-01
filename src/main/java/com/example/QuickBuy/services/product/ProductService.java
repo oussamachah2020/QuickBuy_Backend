@@ -52,6 +52,10 @@ public class ProductService {
     }
 
     public String removeProductById(String productId) {
+        if (productId == null) {
+            throw new IllegalArgumentException("Product id is required");
+        }
+
         try {
             repository.deleteById(productId);
             return "Product deleted successfully";
