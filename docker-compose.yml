@@ -31,6 +31,24 @@ services:
       - postgres
     restart: unless-stopped
 
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile # Ensure the Dockerfile is correctly named and in the root directory
+    container_name: quick_buy_app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/quick_buy_db
+      SPRING_DATASOURCE_USERNAME: oussama
+      SPRING_DATASOURCE_PASSWORD: admin
+      # Add any other Spring environment variables as needed
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
 volumes:
   postgres-data:
   pgadmin-data:

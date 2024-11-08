@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>QuickBuy</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>QuickBuy</name>
 	<description>Backend project for e-commerce app</description>
 	<url/>
